@@ -35,7 +35,7 @@ There is no package installation or build step. With Python 3 installed, run fro
 python -m http.server 8767 --bind 127.0.0.1
 ```
 
-Open <http://127.0.0.1:8767/>. The public site deploys from the root of `main` through GitHub Pages.
+Open <http://127.0.0.1:8767/>. The public site deploys from the root of `main` through GitHub Pages. When changing CSS, update the `v` query value on both stylesheet links in `index.html` so visitors do not combine new HTML with cached older styles.
 
 ## Check changes
 
