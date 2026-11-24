@@ -220,13 +220,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Fonts-loaded: display headings hidden until Plus Jakarta Sans confirmed */
-.hero h1, .section-h2, .cta-h2 {
-  opacity: 0.001; transition: opacity 0.3s ease;
-}
-html.fonts-loaded .hero h1,
-html.fonts-loaded .section-h2,
-html.fonts-loaded .cta-h2 { opacity: 1; }
+/* Headings remain readable with fallback fonts and without JavaScript. */
 
 
 /* Explicit font-stretch reset — prevents any inherited stretch from
@@ -593,8 +587,9 @@ html.light .pillar-ex { color: var(--text-primary); }
 html.light .day-tab.active { background: var(--sprout-text); }
 .day-tab:active { transform: scale(0.97); }
 
-.day-content { display: none; }
-.day-content.active { display: block; }
+.day-content { display: block; }
+.js-ready .day-content { display: none; }
+.js-ready .day-content.active { display: block; }
 
 .day-context {
   font-size: var(--text-sm); color: var(--text-secondary);
@@ -1107,8 +1102,8 @@ html.light .icon--skill { color: #3a7348; }
 .icon--tile   { width: 2rem; height: 2rem; color: rgba(255,255,255,0.55); margin-bottom: 20px; display: block; }
 
 /* ── REVEAL ANIMATION ────────────────────────────────────────────── */
-.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
-.reveal.visible { opacity: 1; transform: none; }
+.js-ready .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+.js-ready .reveal.visible { opacity: 1; transform: none; }
 
 /* ══════════════════════════════════════════════════════════════════
    RESPONSIVE
@@ -1147,3 +1142,39 @@ html.light .icon--skill { color: #3a7348; }
   .day-timeline { padding-left: 50px; }
   .day-timeline::before { left: 24px; }
 }
+
+/* Readable navigation and sources keep the long guide useful as a portfolio demo. */
+.site-brand { position: absolute; top: 28px; left: clamp(20px, 5vw, 64px); z-index: 10; color: var(--text-heading); font: 800 1.25rem var(--font-display); text-decoration: none; }
+.site-brand span { color: var(--text-secondary); font-weight: 500; }
+.guide-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin: 28px auto; position: relative; z-index: 1; }
+.guide-nav a { padding: 13px 18px; border: 1px solid var(--border-strong); border-radius: 4px; color: var(--text-heading); text-decoration: none; font-weight: 600; }
+.guide-nav a:first-child { background: var(--lime); color: #102016; border-color: var(--lime); }
+.guide-nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.source-link, .sources-section a, .site-footer a { color: var(--text-heading); text-decoration: underline; text-underline-offset: 4px; }
+.source-link { display: inline-block; margin-top: 20px; font-weight: 600; line-height: 1.6; }
+.sources-section { background: var(--bg-section-b); padding: var(--space-section) 24px; }
+.sources-inner { max-width: 1040px; margin: 0 auto; }
+.source-list { list-style: none; display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin: 32px 0; }
+.source-list li { border-top: 2px solid var(--sprout); padding-top: 20px; }
+.source-list p, .source-note { color: var(--text-primary); line-height: 1.75; margin-top: 12px; }
+.site-footer nav { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 20px; }
+[id] { scroll-margin-top: 36px; }
+.day-tabs { display: none; }
+.js-ready .day-tabs { display: flex; }
+@media (max-width: 600px) {
+  .source-list { grid-template-columns: 1fr; }
+  .guide-nav { flex-direction: column; }
+  .site-brand { top: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .js-ready .reveal { opacity: 1; transform: none; }
+}
+@media print {
+  .day-tabs, #theme-toggle, #progress-bar { display: none !important; }
+  .js-ready .day-content, .day-content { display: block; }
+  .js-ready .reveal { opacity: 1; transform: none; }
+}
+
+/* Footer links use the same theme surface as their text tokens. */
+.site-footer { background: var(--bg-page); }
